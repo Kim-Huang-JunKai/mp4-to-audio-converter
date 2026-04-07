@@ -1,0 +1,10 @@
+# MP4 to Audio Converter Requirements
+# 此程序仅依赖 Python 标准库，无需额外安装第三方包
+# tkinter - Python 标准 GUI 库（已包含在 Python 中）
+# subprocess - Python 标准库（已包含在 Python 中）
+# threading - Python 标准库（已包含在 Python 中）
+
+# 外部依赖（需要单独安装）:
+# FFmpeg - 音频转换核心工具
+# 下载地址：https://ffmpeg.org/download.html
+# 安装后需要将 FFmpeg 添加到系统 PATH 环境变量
