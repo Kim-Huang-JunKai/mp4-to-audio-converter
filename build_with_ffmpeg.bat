@@ -1,7 +1,8 @@
 @echo off
 chcp 65001 >nul
 echo ====================================
-echo MP4 转音频转换器 - 打包脚本
+echo MP4 转音频转换器 - 完整打包脚本
+echo (FFmpeg 集成到单个 EXE)
 echo ====================================
 echo.
 
@@ -30,8 +31,16 @@ if not exist "ffmpeg\ffmpeg.exe" (
 )
 
 echo.
-echo [3/4] 开始打包程序...
+echo [3/4] 开始打包程序（包含 FFmpeg）...
+REM 使用 --add-data 将 ffmpeg 文件夹打包到 exe 中
 python -m PyInstaller --onefile --windowed --name "MP4 转音频转换器" --add-data "ffmpeg;ffmpeg" converter.py
+
+if errorlevel 1 (
+    echo.
+    echo 打包失败！
+    pause
+    exit /b 1
+)
 
 echo.
 echo [4/4] 清理临时文件...
@@ -45,11 +54,15 @@ echo ====================================
 echo 打包完成！
 echo ====================================
 echo.
-echo 重要：请将以下文件一起分发：
-echo - dist\MP4 转音频转换器.exe
-echo - ffmpeg 文件夹（包含 ffmpeg.exe）
+echo 输出文件：dist\MP4 转音频转换器.exe
 echo.
-echo 或者使用 --add-data 参数将 FFmpeg 打包到单个 exe 中
+echo 特点:
+echo - 单个可执行文件
+echo - 已集成 FFmpeg
+echo - 无需额外文件
+echo - 可直接分发使用
+echo.
+echo 注意：由于集成了 FFmpeg，文件较大（约 80-100MB）
 echo ====================================
 echo.
 pause

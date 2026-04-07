@@ -2,8 +2,27 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import subprocess
 import os
+import sys
 import threading
 from pathlib import Path
+
+
+def get_ffmpeg_path():
+    """
+    获取 FFmpeg 可执行文件路径
+    优先级：1. 内置 FFmpeg 2. 系统 PATH 中的 FFmpeg
+    """
+    if getattr(sys, 'frozen', False):
+        application_path = sys._MEIPASS
+    else:
+        application_path = os.path.dirname(os.path.abspath(__file__))
+    
+    bundled_ffmpeg = os.path.join(application_path, 'ffmpeg', 'ffmpeg.exe')
+    
+    if os.path.exists(bundled_ffmpeg):
+        return bundled_ffmpeg
+    
+    return 'ffmpeg'
 
 
 class AudioConverterApp:
@@ -15,6 +34,7 @@ class AudioConverterApp:
         
         self.input_file = None
         self.converting = False
+        self.ffmpeg_path = get_ffmpeg_path()
         
         self.setup_ui()
         self.check_ffmpeg()
@@ -121,28 +141,28 @@ class AudioConverterApp:
     def check_ffmpeg(self):
         try:
             result = subprocess.run(
-                ['ffmpeg', '-version'],
+                [self.ffmpeg_path, '-version'],
                 capture_output=True,
                 text=True,
                 timeout=5
             )
             if result.returncode == 0:
-                self.status_label.config(text="✓ FFmpeg 已检测到", foreground="green")
+                if os.path.exists(self.ffmpeg_path):
+                    self.status_label.config(text="✓ 内置 FFmpeg 已加载", foreground="green")
+                else:
+                    self.status_label.config(text="✓ 系统 FFmpeg 已检测到", foreground="green")
             else:
                 self.show_ffmpeg_error()
         except (FileNotFoundError, subprocess.TimeoutExpired):
             self.show_ffmpeg_error()
     
     def show_ffmpeg_error(self):
-        self.status_label.config(text="✗ 未检测到 FFmpeg，请安装 FFmpeg 并添加到系统 PATH", foreground="red")
+        self.status_label.config(text="✗ 未检测到 FFmpeg", foreground="red")
         messagebox.showerror(
             "FFmpeg 未找到",
             "未检测到 FFmpeg！\n\n"
-            "请安装 FFmpeg:\n"
-            "1. 访问 https://ffmpeg.org/download.html\n"
-            "2. 下载并安装 FFmpeg\n"
-            "3. 将 FFmpeg 添加到系统 PATH 环境变量\n"
-            "4. 重启程序"
+            "请确保 ffmpeg 文件夹存在于程序同目录下，\n"
+            "且包含 ffmpeg.exe 文件。"
         )
     
     def browse_file(self):
@@ -198,7 +218,7 @@ class AudioConverterApp:
         try:
             if output_format == 'mp3':
                 cmd = [
-                    'ffmpeg', '-i', input_path,
+                    self.ffmpeg_path, '-i', input_path,
                     '-vn',
                     '-acodec', 'libmp3lame',
                     '-b:a', quality,
@@ -207,7 +227,7 @@ class AudioConverterApp:
                 ]
             elif output_format == 'wav':
                 cmd = [
-                    'ffmpeg', '-i', input_path,
+                    self.ffmpeg_path, '-i', input_path,
                     '-vn',
                     '-acodec', 'pcm_s16le',
                     '-ar', '44100',
@@ -217,7 +237,7 @@ class AudioConverterApp:
                 ]
             elif output_format == 'aac':
                 cmd = [
-                    'ffmpeg', '-i', input_path,
+                    self.ffmpeg_path, '-i', input_path,
                     '-vn',
                     '-acodec', 'aac',
                     '-b:a', quality,
@@ -226,7 +246,7 @@ class AudioConverterApp:
                 ]
             elif output_format == 'flac':
                 cmd = [
-                    'ffmpeg', '-i', input_path,
+                    self.ffmpeg_path, '-i', input_path,
                     '-vn',
                     '-acodec', 'flac',
                     '-y',
@@ -234,7 +254,7 @@ class AudioConverterApp:
                 ]
             elif output_format == 'ogg':
                 cmd = [
-                    'ffmpeg', '-i', input_path,
+                    self.ffmpeg_path, '-i', input_path,
                     '-vn',
                     '-acodec', 'libvorbis',
                     '-b:a', quality,
@@ -243,7 +263,7 @@ class AudioConverterApp:
                 ]
             elif output_format == 'm4a':
                 cmd = [
-                    'ffmpeg', '-i', input_path,
+                    self.ffmpeg_path, '-i', input_path,
                     '-vn',
                     '-acodec', 'aac',
                     '-b:a', quality,
@@ -252,7 +272,7 @@ class AudioConverterApp:
                 ]
             elif output_format == 'wma':
                 cmd = [
-                    'ffmpeg', '-i', input_path,
+                    self.ffmpeg_path, '-i', input_path,
                     '-vn',
                     '-acodec', 'wmav2',
                     '-b:a', quality,

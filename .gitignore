@@ -45,6 +45,11 @@ Thumbs.db
 *.pkg
 *.toc
 
+# FFmpeg (large binaries, not needed in repo)
+ffmpeg/
+ffmpeg.zip
+ffmpeg_temp/
+
 # Media files (videos, audio, images)
 *.mp4
 *.avi
