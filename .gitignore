@@ -71,3 +71,7 @@ ffmpeg_temp/
 *.gif
 *.bmp
 *.webp
+
+# Batch scripts with potential sensitive info (PowerShell scripts are safe)
+*.bat
+*.cmd

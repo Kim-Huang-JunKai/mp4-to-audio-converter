@@ -5,7 +5,7 @@ a = Analysis(
     ['converter.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('ffmpeg', 'ffmpeg')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

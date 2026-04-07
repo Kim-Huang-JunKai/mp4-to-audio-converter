@@ -17,7 +17,7 @@
 ### 方法一：使用可执行文件（推荐）
 
 1. **下载程序**
-   - 从 [Releases](https://github.com/YOUR_USERNAME/mp4-to-audio-converter/releases) 下载最新版本
+   - 从 [Releases](https://github.com/KimHuang02/mp4-to-audio-converter/releases) 下载最新版本
    - 或从 `dist` 目录获取已编译的 EXE 文件
 
 2. **运行程序**
@@ -33,7 +33,7 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/YOUR_USERNAME/mp4-to-audio-converter.git
+git clone https://github.com/KimHuang02/mp4-to-audio-converter.git
 cd mp4-to-audio-converter
 
 # 2. 运行程序（需要 FFmpeg）
@@ -160,7 +160,7 @@ A: 由于集成了 FFmpeg，文件较大（约 200MB）。这是正常的，因�
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/YOUR_USERNAME/mp4-to-audio-converter.git
+git clone https://github.com/KimHuang02/mp4-to-audio-converter.git
 
 # 2. 安装依赖（仅开发需要）
 pip install pyinstaller
