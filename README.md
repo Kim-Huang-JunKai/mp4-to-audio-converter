@@ -1,20 +1,89 @@
-# 🚀 快速上传指南
+# MP4 转音频转换器
 
-## 一步完成上传
+一个简单易用的视频转音频提取工具，支持多种音频格式输出。
 
-```powershell
-# 1. 获取 GitHub Token: https://github.com/settings/tokens
+## 功能特点
 
-# 2. 登录并上传
-$env:GH_TOKEN="你的 Token"
-gh auth login --with-token
-gh repo create KimHuang02/mp4-to-audio-converter --public --source=. --remote=origin --push
+- 🎯 支持多种视频格式输入（MP4、AVI、MKV、MOV、WMV、FLV）
+- 🎵 支持多种音频格式输出（MP3、WAV、AAC、FLAC、OGG、M4A、WMA）
+- 🎚️ 可调节音质（128k、192k、256k、320k）
+- 📊 实时转换进度显示
+- 🖥️ 简洁友好的 Windows 界面
+- ⚡ 多线程处理，不阻塞界面
+- 📦 已集成 FFmpeg，无需单独安装
 
-# 3. 创建 Release（可选）
-gh release create v1.1.0 "dist\MP4 转音频转换器.exe" --title "v1.1.0" --notes "MP4 转音频转换器"
-```
+## 快速开始
 
-## 🔗 仓库地址
+### 使用可执行文件（推荐）
 
-创建成功后访问：
-https://github.com/KimHuang02/mp4-to-audio-converter
+1. 下载 `MP4 转音频转换器.exe`
+2. 双击运行
+3. 选择视频文件
+4. 选择输出格式和音质
+5. 点击"开始转换"
+
+**无需安装 FFmpeg，程序已内置，开箱即用！**
+
+## 支持的格式
+
+### 输入格式
+- MP4 (.mp4)
+- AVI (.avi)
+- MKV (.mkv)
+- MOV (.mov)
+- WMV (.wmv)
+- FLV (.flv)
+
+### 输出格式
+- **MP3** - 最常用的音频格式，兼容性好
+- **WAV** - 无损音频格式，音质最佳
+- **AAC** - 高效音频编码，Apple 设备常用
+- **FLAC** - 无损压缩音频格式
+- **OGG** - 开源免费音频格式
+- **M4A** - Apple 设备音频格式
+- **WMA** - Windows 媒体音频格式
+
+## 音质说明
+
+- **128k** - 标准音质，文件较小
+- **192k** - 良好音质，推荐默认选项
+- **256k** - 高质量音质
+- **320k** - 最佳音质，文件最大
+
+## 技术说明
+
+- **GUI 框架**: Python tkinter
+- **转换引擎**: FFmpeg
+- **打包工具**: PyInstaller
+- **Python 版本**: 3.6+
+
+## 常见问题
+
+### Q: 程序提示"未检测到 FFmpeg"
+A: 请确保 `ffmpeg` 文件夹与程序在同一目录下，且包含 `ffmpeg.exe` 文件。
+
+### Q: 转换失败
+A: 检查以下几点：
+- 确认输入文件没有损坏
+- 检查磁盘空间是否充足
+- 尝试重新选择输出格式
+
+### Q: 转换速度慢
+A: 转换速度取决于：
+- 视频文件大小和时长
+- 电脑性能
+- 选择的音质（音质越高转换越慢）
+
+## 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
+
+## 致谢
+
+- [FFmpeg](https://ffmpeg.org/) - 强大的音视频转换工具
+- [PyInstaller](https://www.pyinstaller.org/) - Python 打包工具
+
+---
+
+**版本**: v1.1.0  
+**许可证**: MIT License
